@@ -1,10 +1,4 @@
 function [FEMesh, cutOutElements] = cutoutMesh_repeatingcircles(L, R, c, r, maxMeshSize, minMeshSize)
-L = 6;
-R = 0.2;
-c = 5;
-r = 5;
-maxMeshSize = 0.1;
-minMeshSize = 0.01;
 
 %Set up gd Matrix
 gMatLength = 50;
@@ -54,6 +48,7 @@ xlim([-pp*(L/2),pp*(L/2)])
 ylim([-pp*(L/2),pp*(L/2)])
 
 end
+
 
 
 
