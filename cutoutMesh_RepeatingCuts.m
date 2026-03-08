@@ -1,4 +1,10 @@
-function [FEMesh, cutOutElements] = cutoutMesh_repeatingcircles(L, R, c, r, maxMeshSize, minMeshSize)
+function [FEMesh, cutOutElements] = cutoutMesh_repeatingcircles(L, l, h, c, r, maxMeshSize, minMeshSize)
+L = 4;
+l = 0.2;
+c = 3;
+r = 3;
+maxMeshSize = 0.1;
+minMeshSize = 0.01;
 
 %Set up gd Matrix
 gMatLength = 50;
@@ -17,11 +23,24 @@ ySpacing = L/(r + 1);
 for i = 1:c
     for j = 1:r
         col = (i-1)*r + j;
+
         xc = -HH + xSpacing * i;
         yc = -HH + ySpacing * j;
-        gd(1:5, col) = [1; xc; yc; R; 0];
+
+        % Triangle vertices
+        x1 = xc - l/2;  y1 = yc - l/2;
+        x2 = xc + l/2;  y2 = yc - l/2;
+        x3 = xc;        y3 = yc + l/2;
+
+        gd(1:8, col) = [2;          % polygon code
+                      3;          % number of vertices
+                      x1; x2; x3; % x-coordinates
+                      y1; y2; y3];% y-coordinates
     end
 end
+
+
+
 
 %check to see geometry
 disp (gd)
@@ -48,7 +67,6 @@ xlim([-pp*(L/2),pp*(L/2)])
 ylim([-pp*(L/2),pp*(L/2)])
 
 end
-
 
 
 
